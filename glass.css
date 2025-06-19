@@ -1,0 +1,535 @@
+/*
+ * ==================================================
+ * LIQUID GLASS UI FRAMEWORK
+ * Author: Google Expert
+ * Version: 1.0.0
+ * Description: A universal, responsive CSS framework
+ * with a prominent liquid glass aesthetic.
+ * ==================================================
+ */
+
+/* --- 1. CSS Variables (Custom Properties) for Easy Customization --- */
+:root {
+    /* Base Colors (can be adjusted for different themes) */
+    --color-primary: #007aff; /* iOS Blue */
+    --color-secondary: #5ac8fa; /* Light Blue */
+    --color-accent: #ff2d55;  /* Reddish Accent */
+
+    /* Glass Effect Colors (crucial for the aesthetic) */
+    --glass-bg-light: rgba(255, 255, 255, 0.1);  /* Very light transparent white */
+    --glass-bg-medium: rgba(255, 255, 255, 0.15); /* Slightly less transparent */
+    --glass-bg-dark: rgba(0, 0, 0, 0.1);       /* Light transparent black */
+    --glass-border-light: rgba(255, 255, 255, 0.2); /* Thin light border */
+    --glass-border-dark: rgba(255, 255, 255, 0.1);  /* Thin darker border for text clarity */
+    --glass-shadow-light: rgba(0, 0, 0, 0.1);    /* Soft light shadow */
+    --glass-shadow-dark: rgba(0, 0, 0, 0.25);    /* More pronounced shadow */
+
+    /* Blur Intensities */
+    --blur-sm: 8px;
+    --blur-md: 15px;
+    --blur-lg: 25px; /* For backgrounds or large elements */
+
+    /* Typography */
+    --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    --font-size-base: 16px;
+    --line-height-base: 1.6;
+    --text-color-light: #ffffff;
+    --text-color-dark: #333333; /* For use on light backgrounds if needed */
+
+    /* Spacing */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-xxl: 48px;
+
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-circle: 50%;
+
+    /* Transitions & Animations */
+    --transition-speed: 0.3s;
+    --transition-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Ease-in-out quintic */
+
+    /* Default UI colors based on context (will be overridden by dark mode) */
+    --ui-text-color: var(--text-color-light);
+    --ui-element-bg: var(--glass-bg-medium);
+    --ui-element-border: var(--glass-border-light);
+    --ui-shadow: var(--glass-shadow-dark);
+}
+
+/* --- 2. Base Reset & Utilities --- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color: var(--ui-text-color); /* Default to light text */
+    background: #1a2a6c; /* Example background for testing glass effect */
+    /* Add a background image for a better glass effect visualization */
+    background-image: url('https://picsum.photos/1920/1080?random=1'); /* Placeholder image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Optional: for parallax-like effect */
+    min-height: 100vh;
+    display: flex; /* For centering content easily */
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+/* Global Liquid Glass Effect for primary content areas */
+.liquid-glass-element {
+    background-color: var(--ui-element-bg);
+    backdrop-filter: blur(var(--blur-md));
+    -webkit-backdrop-filter: blur(var(--blur-md));
+    border: 1px solid var(--ui-element-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 8px 32px 0 var(--ui-shadow);
+    transition: all var(--transition-speed) var(--transition-ease);
+}
+
+/* Helper for elements that need less blur (e.g., buttons, inputs) */
+.liquid-glass-element-sm {
+    background-color: var(--ui-element-bg);
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    border: 1px solid var(--ui-element-border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 16px 0 var(--ui-shadow);
+    transition: all var(--transition-speed) var(--transition-ease);
+}
+
+/* Text Styling */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--ui-text-color);
+    margin-bottom: var(--spacing-md);
+    text-shadow: 0 0 5px rgba(0,0,0,0.3); /* Subtle text shadow for clarity on glass */
+}
+p {
+    margin-bottom: var(--spacing-sm);
+}
+
+/* --- 3. Layout System (Flexbox Grid) --- */
+.container {
+    width: 100%;
+    max-width: 1400px; /* Wider container for spacious feel */
+    margin-left: auto;
+    margin-right: auto;
+    padding: var(--spacing-xl); /* Generous padding */
+
+    /* For initial content centering */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: calc(-1 * var(--spacing-md));
+    margin-right: calc(-1 * var(--spacing-md));
+}
+
+.col {
+    flex: 1;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+    min-width: 0; /* Ensures content fits in flex items */
+}
+
+/* Responsive Column Classes (12-column grid) */
+.col-1 { flex: 0 0 8.333%; max-width: 8.333%; }
+.col-2 { flex: 0 0 16.666%; max-width: 16.666%; }
+.col-3 { flex: 0 0 25%; max-width: 25%; }
+.col-4 { flex: 0 0 33.333%; max-width: 33.333%; }
+.col-5 { flex: 0 0 41.666%; max-width: 41.666%; }
+.col-6 { flex: 0 0 50%; max-width: 50%; }
+.col-7 { flex: 0 0 58.333%; max-width: 58.333%; }
+.col-8 { flex: 0 0 66.666%; max-width: 66.666%; }
+.col-9 { flex: 0 0 75%; max-width: 75%; }
+.col-10 { flex: 0 0 83.333%; max-width: 83.333%; }
+.col-11 { flex: 0 0 91.666%; max-width: 91.666%; }
+.col-12 { flex: 0 0 100%; max-width: 100%; }
+
+/* Responsive Breakpoints */
+@media (min-width: 576px) { /* Small devices (sm) */
+    .col-sm-1 { flex: 0 0 8.333%; max-width: 8.333%; } /* ... up to col-sm-12 */
+    .col-sm-auto { flex: 0 0 auto; width: auto; }
+}
+@media (min-width: 768px) { /* Medium devices (md) */
+    .col-md-1 { flex: 0 0 8.333%; max-width: 8.333%; } /* ... up to col-md-12 */
+    .col-md-auto { flex: 0 0 auto; width: auto; }
+}
+@media (min-width: 992px) { /* Large devices (lg) */
+    .col-lg-1 { flex: 0 0 8.333%; max-width: 8.333%; } /* ... up to col-lg-12 */
+    .col-lg-auto { flex: 0 0 auto; width: auto; }
+}
+@media (min-width: 1200px) { /* Extra large devices (xl) */
+    .col-xl-1 { flex: 0 0 8.333%; max-width: 8.333%; } /* ... up to col-xl-12 */
+    .col-xl-auto { flex: 0 0 auto; width: auto; }
+}
+
+/* Flexbox Utilities */
+.d-flex { display: flex; }
+.d-block { display: block; }
+.d-inline-block { display: inline-block; }
+.justify-content-start { justify-content: flex-start; }
+.justify-content-end { justify-content: flex-end; }
+.justify-content-center { justify-content: center; }
+.justify-content-between { justify-content: space-between; }
+.align-items-start { align-items: flex-start; }
+.align-items-end { align-items: flex-end; }
+.align-items-center { align-items: center; }
+.flex-column { flex-direction: column; }
+.flex-wrap { flex-wrap: wrap; }
+.gap-sm { gap: var(--spacing-sm); }
+.gap-md { gap: var(--spacing-md); }
+.gap-lg { gap: var(--spacing-lg); }
+
+/* Spacing Utilities */
+.m-auto { margin: auto; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+.my-auto { margin-top: auto; margin-bottom: auto; }
+
+.mt-sm { margin-top: var(--spacing-sm); } .mb-sm { margin-bottom: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); } .mb-md { margin-bottom: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); } .mb-lg { margin-bottom: var(--spacing-lg); }
+.pt-sm { padding-top: var(--spacing-sm); } .pb-sm { padding-bottom: var(--spacing-sm); }
+.pt-md { padding-top: var(--spacing-md); } .pb-md { padding-bottom: var(--spacing-md); }
+.pt-lg { padding-top: var(--spacing-lg); } .pb-lg { padding-bottom: var(--spacing-lg); }
+
+/* --- 4. Core UI Components with Liquid Glass Aesthetics --- */
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 1px solid var(--ui-element-border);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--ui-text-color);
+    background-color: var(--ui-element-bg);
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    box-shadow: 0 2px 8px var(--glass-shadow-light);
+    transition: all var(--transition-speed) var(--transition-ease);
+    -webkit-tap-highlight-color: transparent;
+}
+.btn:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 4px 12px var(--glass-shadow-dark);
+    transform: translateY(-2px);
+}
+.btn:active {
+    background-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(0);
+    box-shadow: 0 1px 4px var(--glass-shadow-light) inset;
+}
+
+/* Primary Button */
+.btn-primary {
+    background-color: var(--color-primary); /* Solid primary color, still transparent */
+    border-color: rgba(255, 255, 255, 0.3); /* Slightly brighter border */
+    color: var(--text-color-light);
+    box-shadow: 0 4px 15px rgba(0, 122, 255, 0.4); /* Primary color glow */
+}
+.btn-primary:hover {
+    background-color: var(--color-primary);
+    filter: brightness(1.1); /* Brighter on hover */
+    box-shadow: 0 6px 20px rgba(0, 122, 255, 0.6);
+}
+/* ... add other color variants like .btn-accent, .btn-secondary, etc. */
+
+/* Outline Buttons (more transparent) */
+.btn-outline {
+    background-color: transparent;
+    border-color: var(--ui-element-border);
+    color: var(--ui-text-color);
+}
+.btn-outline:hover {
+    background-color: var(--ui-element-bg);
+    box-shadow: 0 4px 12px var(--glass-shadow-dark);
+}
+.btn-outline-primary {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+.btn-outline-primary:hover {
+    background-color: var(--color-primary);
+    color: var(--text-color-light);
+}
+
+/* Forms - Inputs & Textareas */
+.form-control {
+    display: block;
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color: var(--ui-text-color);
+    background-color: var(--glass-bg-dark); /* Slightly darker glass background */
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    border: 1px solid var(--glass-border-dark);
+    border-radius: var(--radius-md);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.2); /* Inset shadow for depth */
+    transition: all var(--transition-speed) var(--transition-ease);
+}
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+.form-control:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3), inset 0 1px 4px rgba(0, 0, 0, 0.2); /* Focus ring with inset shadow */
+    background-color: rgba(0, 0, 0, 0.2); /* Slightly darker on focus */
+}
+
+/* Cards / Panels */
+.card {
+    @extend .liquid-glass-element; /* Inherit base glass style */
+    padding: var(--spacing-xl);
+    overflow: hidden;
+}
+.card-header {
+    padding-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--ui-element-border);
+    font-weight: 600;
+}
+.card-body {
+    /* No specific styles, just for content padding if needed */
+}
+.card-footer {
+    padding-top: var(--spacing-md);
+    margin-top: var(--spacing-md);
+    border-top: 1px solid var(--ui-element-border);
+}
+
+
+/* Navbar / Top Bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-xl);
+    @extend .liquid-glass-element; /* Apply glass style */
+    border-radius: 0; /* No radius for full-width bar */
+    border-left: none;
+    border-right: none;
+    border-top: none; /* No top border */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--glass-bg-medium); /* Slightly more opaque background */
+    backdrop-filter: blur(var(--blur-lg)); /* More blur for background element */
+    -webkit-backdrop-filter: blur(var(--blur-lg));
+}
+.navbar-brand {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--color-primary); /* Primary accent color for brand */
+    text-decoration: none;
+    text-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-lg); /* Space between nav items */
+}
+.nav-item a {
+    text-decoration: none;
+    color: var(--ui-text-color);
+    padding: var(--spacing-sm) 0;
+    transition: all var(--transition-speed) var(--transition-ease);
+    position: relative;
+    overflow: hidden; /* For underline effect */
+}
+.nav-item a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: width var(--transition-speed) var(--transition-ease);
+}
+.nav-item a:hover::after {
+    width: 100%;
+}
+.nav-item a:hover {
+    color: var(--color-primary);
+}
+
+/* Modals / Dialogs */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Darker overlay */
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-speed) var(--transition-ease);
+}
+.modal-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+.modal-content {
+    @extend .liquid-glass-element;
+    padding: var(--spacing-xl);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: all var(--transition-speed) var(--transition-ease);
+}
+.modal-overlay.show .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* --- 5. Dynamic & Smooth Animations (via CSS Keyframes) --- */
+
+/* Fade In */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.animate-fade-in {
+    animation: fadeIn var(--transition-speed) var(--transition-ease) forwards;
+}
+
+/* Slide In Up */
+@keyframes slideInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+.animate-slide-in-up {
+    animation: slideInUp var(--transition-speed) var(--transition-ease) forwards;
+}
+
+/* Pulsate (for active indicators/notifications) */
+@keyframes pulsate {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.8; }
+}
+.animate-pulsate {
+    animation: pulsate 2s infinite var(--transition-ease);
+}
+
+/* Glow Effect (for focus/active states) */
+@keyframes glow {
+    from { box-shadow: 0 0 0px var(--color-primary); }
+    to { box-shadow: 0 0 15px var(--color-primary); }
+}
+.animate-glow-on-focus:focus {
+    animation: glow 0.8s infinite alternate;
+}
+
+/* --- 6. Dark Mode Support (using prefers-color-scheme) --- */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --glass-bg-light: rgba(0, 0, 0, 0.15);
+        --glass-bg-medium: rgba(0, 0, 0, 0.2);
+        --glass-bg-dark: rgba(0, 0, 0, 0.25);
+        --glass-border-light: rgba(255, 255, 255, 0.1);
+        --glass-border-dark: rgba(255, 255, 255, 0.05);
+        --glass-shadow-light: rgba(0, 0, 0, 0.2);
+        --glass-shadow-dark: rgba(0, 0, 0, 0.4);
+
+        --ui-text-color: var(--text-color-light);
+        --ui-element-bg: var(--glass-bg-medium);
+        --ui-element-border: var(--glass-border-light);
+        --ui-shadow: var(--glass-shadow-dark);
+    }
+
+    body {
+        background: #000; /* Pure black background for dark mode */
+        background-image: url('https://picsum.photos/1920/1080?random=2'); /* Different image for dark mode */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+
+    /* Adjust specific components for dark mode if needed */
+    .btn-primary {
+        box-shadow: 0 4px 15px rgba(0, 122, 255, 0.6); /* More intense primary glow */
+    }
+}
+
+/* --- 7. Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .container {
+        padding: var(--spacing-lg); /* Less padding on smaller screens */
+    }
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--spacing-md);
+    }
+    .nav-menu {
+        flex-direction: column;
+        width: 100%;
+        margin-top: var(--spacing-md);
+        gap: var(--spacing-sm);
+    }
+    .nav-item {
+        width: 100%;
+        text-align: center;
+    }
+    .btn {
+        width: 100%; /* Full width buttons on small screens */
+        margin-bottom: var(--spacing-sm);
+    }
+    .col-xs-1 { flex: 0 0 8.333%; max-width: 8.333%; } /* ... up to col-xs-12 */
+    .col-xs-12 { flex: 0 0 100%; max-width: 100%; }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --font-size-base: 15px;
+        --blur-sm: 6px;
+        --blur-md: 10px;
+        --blur-lg: 18px;
+        --radius-lg: 15px;
+    }
+    .container {
+        padding: var(--spacing-md);
+    }
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.5em; }
+}
+
+/* Extend/Mixins in CSS (for conceptual use here, real ones are in Sass/Less) */
+/* The `@extend` in CSS comments above are conceptual. In real CSS, you'd duplicate properties or use a preprocessor. */
