@@ -14,6 +14,7 @@ Gunakan layanan **jsDelivr** agar browser dapat membaca file CSS ini dengan bena
 
 <link href="[https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap](https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap)" rel="stylesheet">
 ```
+atau download file css Focus UI melalui github ini
 
 ---
 
@@ -91,5 +92,5 @@ Focus UI didesain murni **statis**. Tidak ada animasi transisi di dalam CSS untu
 
 ---
 
-## 🤝 Lisensi
-Dibuat dengan 💜 oleh **[NAMA-MU]**. Proyek ini di bawah lisensi MIT.
+### dibuat oleh:
+> dayxnight
