@@ -62,5 +62,76 @@ Jika kamu ingin mengubah tema Focus UI menjadi warna lain (misalnya Hijau Matcha
 
 ---
 
-## ⚡ Catatan untuk Developer
-Focus UI dirancang murni untuk **Gaya Visual**. Untuk interaksi yang lebih hidup, sangat disarankan menggunakan framework animasi seperti **GSAP** atau **Van.js** untuk menggerakkan elemen-elemen yang sudah diatur oleh variabel di atas.
+## 📐 4. Flexbox Utilities (Layout Mobile-First)
+
+Focus UI telah meninggalkan sistem Grid kuno dan beralih menggunakan **Flexbox Utility Classes**. Pendekatan ini membuat pengembangan *Mobile Web App* menjadi jauh lebih cepat, lincah, dan tidak membebani performa browser.
+
+Cukup tambahkan kelas-kelas ini langsung ke dalam tag HTML (atau komponen Van.js) kamu untuk menata tata letak dalam hitungan detik.
+
+### 🧱 Base & Direction (Dasar Flexbox)
+| Kelas | Kegunaan (CSS Setara) |
+| :--- | :--- |
+| `.flex` | Mengaktifkan mode flexbox (`display: flex;`). Wajib dipakai! |
+| `.flex-col` | Menyusun elemen berderet ke bawah / vertikal (`flex-direction: column;`). |
+| `.flex-row` | Menyusun elemen berderet ke samping / horizontal (`flex-direction: row;`). |
+| `.flex-wrap` | Membuat elemen turun ke baris baru jika tidak muat (`flex-wrap: wrap;`). |
+
+### 📏 Sizing (Ukuran Otomatis)
+| Kelas | Kegunaan |
+| :--- | :--- |
+| `.flex-1` | Memaksa elemen untuk membagi sisa ruang secara adil dan rata. |
+| `.flex-auto` | Elemen menyesuaikan ukurannya sendiri secara dinamis. |
+| `.flex-none` | Mengunci ukuran elemen agar tidak bisa membesar/mengecil. |
+| `.w-full` | Lebar penuh 100%. |
+| `.h-full` | Tinggi penuh 100%. |
+
+### 🧲 Justify (Perataan Utama)
+Mengatur posisi elemen di sepanjang sumbu utama (Horizontal jika `flex-row`, Vertikal jika `flex-col`).
+
+| Kelas | Kegunaan |
+| :--- | :--- |
+| `.justify-start` | Merapatkan elemen ke awal (Kiri/Atas). |
+| `.justify-end` | Merapatkan elemen ke akhir (Kanan/Bawah). |
+| `.justify-center` | Memposisikan elemen pas di tengah. |
+| `.justify-between` | Mendorong elemen ke ujung, menyisakan jarak kosong di tengah. |
+| `.justify-around` | Memberikan jarak kosong yang sama rata di sekeliling elemen. |
+
+### 🎯 Align (Perataan Berpotongan)
+Mengatur posisi elemen di sumbu silang (Atas-bawah jika `flex-row`, Kiri-kanan jika `flex-col`).
+
+| Kelas | Kegunaan |
+| :--- | :--- |
+| `.align-start` | Menempel di sisi atas/kiri. |
+| `.align-end` | Menempel di sisi bawah/kanan. |
+| `.align-center` | Berada tepat di tengah (vertikal/horizontal). |
+| `.align-stretch` | Memaksa elemen ditarik penuh memenuhi wadah. |
+
+### 🌌 Spacing & Gaps (Jarak & Ruang Napas)
+Utility untuk memberikan jarak antar elemen tanpa menggunakan CSS kustom. Gunakan ukuran `sm` (8px), `md` (16px), atau `lg` (24px).
+
+| Tipe | Contoh Kelas | Kegunaan |
+| :--- | :--- | :--- |
+| **Gap** | `.gap-sm`, `.gap-md`, `.gap-lg` | Memberi jarak *hanya di antara* elemen-elemen flex. (Sangat direkomendasikan!) |
+| **Padding** | `.p-sm`, `.p-md` | Ruang kosong di bagian *dalam* elemen. |
+| **Margin Top** | `.mt-sm`, `.mt-md` | Jarak dorong ke arah *atas*. |
+| **Margin Bottom** | `.mb-sm`, `.mb-md` | Jarak dorong ke arah *bawah*. |
+
+---
+
+### 💡 Contoh Penggunaan Super Cepat
+
+Daripada membuat file CSS baru, kamu bisa membangun komponen yang rapi seperti ini hanya dengan utility:
+
+```html
+<div class="card flex flex-col gap-md">
+    
+    <div class="flex flex-row justify-between align-center">
+        <h3 class="flex-1">Task Manager</h3>
+        <button class="btn btn-primary btn-pill">Tambah</button>
+    </div>
+
+    <p class="mt-sm">Fokus selesaikan satu per satu, ya!</p>
+
+</div>
+```
+
