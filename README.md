@@ -118,20 +118,112 @@ Utility untuk memberikan jarak antar elemen tanpa menggunakan CSS kustom. Gunaka
 
 ---
 
+## 🪟 5. Efek Kaca (Glassmorphism)
+
+Focus UI dilengkapi dengan kelas utilitas khusus untuk menciptakan efek kaca melayang yang elegan dan kekinian.
+
+| Kelas | Kegunaan |
+| :--- | :--- |
+| `.ff-glass` | Memberikan latar belakang transparan ringan dengan efek *blur* sebesar 20px dan garis tepi (*border*) putih tipis. Sangat cocok untuk panel menu atau *overlay*. |
+
+```html
+<div class="ff-glass p-md border-radius-lg">
+    <p>Teks ini berada di atas panel kaca melayang.</p>
+</div>
+```
+
+---
+
+## 🧩 6. Komponen UI (Statis & Bebas Animasi)
+
+Semua komponen Focus UI didesain murni **statis** (tanpa animasi transisi bawaan CSS). Ini sengaja dilakukan agar kamu bisa bebas menyuntikkan animasi tingkat lanjut menggunakan JavaScript (seperti **GSAP** atau **Van.js**) tanpa mengalami bentrok atau *lag* di perangkat *mobile*.
+
+### 🔘 Tombol (Buttons)
+Bentuknya membulat, solid, dan memiliki perubahan warna yang instan saat disentuh/diklik.
+
+| Kelas | Kegunaan |
+| :--- | :--- |
+| `.btn` | Kelas dasar wajib untuk semua tombol. Berwarna lavender lembut (*secondary*). |
+| `.btn-primary` | Warna ungu pekat (*primary*) dengan bayangan melayang yang kuat. |
+| `.btn-pill` | Membuat tombol berbentuk kapsul/pil (lengkungan 100px). |
+| `.btn-icon` | Membuat tombol berbentuk bulat sempurna (45x45px) khusus untuk 1 ikon. |
+
+```html
+<div class="flex gap-sm">
+    <button class="btn btn-primary btn-pill">Simpan</button>
+    <button class="btn btn-icon">X</button>
+</div>
+```
+
+### 📝 Input Form (Form Control)
+Input teks yang membesar secara otomatis dan berubah warna batasnya (*border*) saat sedang diketik.
+
+| Kelas | Kegunaan |
+| :--- | :--- |
+| `.form-control` | Kelas dasar untuk elemen `<input>` atau `<textarea>`. Melengkung lembut dengan jarak *padding* yang ramah sentuhan jari. |
+
+```html
+<input type="text" class="form-control" placeholder="Tulis tugasmu hari ini...">
+```
+
+### 🃏 Kartu (Cards)
+Wadah utama untuk menampilkan konten di Focus UI.
+
+| Kelas | Kegunaan |
+| :--- | :--- |
+| `.card` | Kotak putih bersih dengan lengkungan tajam 30px dan efek bayangan ungu melayang (`shadow-soft`). |
+
+### 🧭 Navigasi (Navbar)
+Bilah menu yang menempel di bagian atas layar agar selalu bisa diakses.
+
+| Kelas | Kegunaan |
+| :--- | :--- |
+| `.navbar` | Bilah navigasi transparan (*glassmorphism*) yang secara otomatis memosisikan dirinya diam (`sticky`) di bagian paling atas layar dan memiliki `z-index` tinggi agar tidak tertutup elemen lain. |
+
+```html
+<nav class="navbar">
+    <h3>Focus App</h3>
+    <button class="btn btn-icon">⚙️</button>
+</nav>
+```
+
+### 🚨 Modals (Kotak Dialog)
+Sistem *modal* yang muncul di tengah layar dengan latar belakang gelap. Didesain untuk diatur penampilannya lewat JavaScript (menggunakan manipulasi kelas `.show`).
+
+| Kelas | Kegunaan |
+| :--- | :--- |
+| `.modal-overlay` | Latar belakang hitam transparan yang menutupi seluruh layar. Default-nya disembunyikan (`display: none`). |
+| `.modal-overlay.show` | Tambahkan kelas `.show` via JavaScript untuk memunculkan modalnya. |
+| `.modal-content` | Kotak kartunya yang berada tepat di tengah layar. |
+
+```html
+<div class="modal-overlay" id="myModal">
+    <div class="modal-content flex flex-col gap-md align-center">
+        <h3>Peringatan!</h3>
+        <p>Apakah kamu yakin ingin menghapus data ini?</p>
+        <button class="btn btn-primary w-full">Tutup</button>
+    </div>
+</div>
+```
+
 ### 💡 Contoh Penggunaan Super Cepat
 
 Daripada membuat file CSS baru, kamu bisa membangun komponen yang rapi seperti ini hanya dengan utility:
 
 ```html
-<div class="card flex flex-col gap-md">
-    
-    <div class="flex flex-row justify-between align-center">
-        <h3 class="flex-1">Task Manager</h3>
-        <button class="btn btn-primary btn-pill">Tambah</button>
-    </div>
+<div class="container flex flex-col justify-center align-center h-full">
+            <div
+                class="card flex flex-col gap-md"
+                style="width: 100%; max-width: 400px; margin-top: 50px"
+            >
+                <div class="flex flex-row justify-between align-center">
+                    <h3 class="flex-1">Task Manager</h3>
+                    <button class="btn btn-primary btn-pill">Tambah</button>
+                </div>
 
-    <p class="mt-sm">Fokus selesaikan satu per satu, ya!</p>
-
-</div>
+                <p class="mt-sm">Fokus selesaikan satu per satu, ya!</p>
+            </div>
+        </div>
 ```
+
 
